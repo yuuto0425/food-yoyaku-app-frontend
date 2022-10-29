@@ -1,0 +1,41 @@
+.productsDetailsPage {
+
+}
+.productsDetailsContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto 0;
+}
+.productsDetailItem {
+
+}
+.productsDetailItem article {
+}
+.productsDetailItem article figure {
+}
+.productsDetailItem article figure img{
+    border-radius: 5px;
+}
+.productsDetailItemBody {
+    margin-top: 20px;
+}
+.productRemove,.productAdd {
+    padding: 10px 20px;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+.productRemove {
+
+}
+.productRemove + .productAdd {
+    margin-left: 20px;
+}
+.productAdd {
+
+}
+.productsDetailItemTitle {
+    margin-top: 20px;
+}
+.productsDetailItemTxt {
+
+}

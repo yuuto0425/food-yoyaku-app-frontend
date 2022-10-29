@@ -1,0 +1,28 @@
+.nav {
+    padding: 20px 0;
+}
+.navContainer {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navLogo {
+    text-align: center;
+}
+.navLogo h1 {
+
+}
+.navLists {
+    display: flex;
+    gap: 0 16px;
+}
+.navList {
+    padding: 2.5px 5px;
+    transition: all .2s;
+}
+.navList:hover {
+    
+}

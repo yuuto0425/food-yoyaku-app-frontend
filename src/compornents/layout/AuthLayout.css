@@ -1,0 +1,11 @@
+.Auth {
+    
+}
+.AuthContainer {
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}

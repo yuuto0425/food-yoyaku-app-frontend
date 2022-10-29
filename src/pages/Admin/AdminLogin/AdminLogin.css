@@ -1,0 +1,55 @@
+.login {
+    width: 100%;
+    height: 100%;
+}
+.loginContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px 30px;
+}
+.loginLeft {
+    text-align: center;
+    width: 50%;
+    font-size: 28px;
+}
+.loginTitle {
+    font-weight: bold;
+}
+.loginMessage {
+    font-size: 16px;
+    margin-top: 14px;
+}
+.loginRight {
+    width: 50%;
+}
+.loginForm {
+
+}
+.loginFormDl {
+
+}
+.loginFormRow {
+
+}
+.loginFormRow:not(:first-child) {
+    margin-top: 20px;
+}
+.loginFormDt {
+
+}
+.loginFormDt label {
+
+}
+.loginFormDd input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0.8;
+    margin-top: 14px;
+}
+.loginFormDd input:focus {
+    outline: none;
+}

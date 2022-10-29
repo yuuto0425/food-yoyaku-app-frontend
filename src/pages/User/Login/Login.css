@@ -1,0 +1,55 @@
+.userLogin {
+    width: 100%;
+    height: 100%;
+}
+.userLoginContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px 30px;
+}
+.userLoginLeft {
+    text-align: center;
+    width: 50%;
+    font-size: 28px;
+}
+.userLoginTitle {
+    font-weight: bold;
+}
+.userLoginMessage {
+    font-size: 16px;
+    margin-top: 14px;
+}
+.userLoginRight {
+    width: 50%;
+}
+.userLoginForm {
+
+}
+.userLoginFormDl {
+
+}
+.userLoginFormRow {
+
+}
+.userLoginFormRow:not(:first-child) {
+    margin-top: 20px;
+}
+.userLoginFormDt {
+
+}
+.userLoginFormDt label {
+
+}
+.userLoginFormDd input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0.8;
+    margin-top: 14px;
+}
+.userLoginFormDd input:focus {
+    outline: none;
+}
