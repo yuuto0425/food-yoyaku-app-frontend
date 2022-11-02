@@ -1,0 +1,6 @@
+    adminのpageを後で追加 url(例 : adminLogin
+    Navigateと三項演算子で表示コンポーネント管理
+    apiRequestのエンドポイントローカルと本番環境考慮。
+    proxy,corsOrigin設定周りに注意。
+    git push時 自動デプロイ
+    画像表示方法を考える

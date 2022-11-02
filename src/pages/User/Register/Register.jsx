@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.css";
 import "../../../styles/common/Auth.css";
+import axios from "axios";
+import { userRequest } from "../../../requestMethods";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [nameVal, setNameVal] = useState("");
+  const [emailVal, setEmailVal] = useState("");
+  const [passwordVal, setPasswordVal] = useState("");
+  const [confirmPasswordVal, setConfirmPasswordVal] = useState("");
+  const [telVal, setTelVal] = useState("");
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (passwordVal !== confirmPasswordVal) {
+      setErrors({
+        password: "パスワードが間違っています。もう一度確認をしてください。",
+      });
+    } else {
+      const user = {
+        userName: nameVal,
+        email: emailVal,
+        password: passwordVal,
+      };
+      try {
+        const data =  await userRequest.post("/auth/register", user);
+        console.log(data);
+        navigate("/userLogin");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
   return (
     <div className="register">
       <div className="registerContainer sm:flex-col lg:flex-row">
@@ -12,7 +43,7 @@ const Register = () => {
           <p className="registerMessage">サクッと注文みんなハッピー</p>
         </div>
         <div className="registerRight sm:w-full sm:mt-3">
-          <form className="registerForm" noValidate>
+          <form className="registerForm" onSubmit={(e) => handleSubmit(e)}>
             <dl className="registerFormDl">
               <div className="registerFormRow">
                 <dt className="registerFormDt">
@@ -23,7 +54,9 @@ const Register = () => {
                     id="name"
                     type="text"
                     placeholder="お名前を入力してください"
-                    value=""
+                    value={nameVal}
+                    onChange={(e) => setNameVal(e.target.value)}
+                    required
                   />
                 </dd>
               </div>
@@ -36,7 +69,9 @@ const Register = () => {
                     id="email"
                     type="email"
                     placeholder="メールアドレスを入力しください。"
-                    value=""
+                    value={emailVal}
+                    onChange={(e) => setEmailVal(e.target.value)}
+                    required
                   />
                 </dd>
               </div>
@@ -49,7 +84,9 @@ const Register = () => {
                     id="password"
                     type="password"
                     placeholder="パスワードを入力してください。"
-                    value=""
+                    value={passwordVal}
+                    onChange={(e) => setPasswordVal(e.target.value)}
+                    required
                   />
                 </dd>
               </div>
@@ -62,7 +99,9 @@ const Register = () => {
                     id="confirmPassword"
                     type="password"
                     placeholder="確認用のパスワードを入力してください。"
-                    value=""
+                    value={confirmPasswordVal}
+                    onChange={(e) => setConfirmPasswordVal(e.target.value)}
+                    required
                   />
                 </dd>
               </div>
@@ -75,13 +114,21 @@ const Register = () => {
                     id="tel"
                     type="tel"
                     placeholder="電話番号を入力してください"
-                    value=""
+                    value={telVal}
+                    onChange={(e) => setTelVal(e.target.value)}
                   />
                 </dd>
               </div>
-              <button className="formSubmit" type="submit">新規登録</button>
-              <button className="formSubmit" type="submit">ログイン</button>
+              <button className="formSubmit" type="submit">
+                新規登録
+              </button>
+              <button className="formSubmit">ログイン</button>
             </dl>
+            <ul className="errorTexts">
+              <li style={{ color: "red" }} className="errorText">
+                {errors.password}
+              </li>
+            </ul>
           </form>
         </div>
       </div>

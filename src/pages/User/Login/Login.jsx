@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { userRequest } from "../../../requestMethods";
 import "./Login.css";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({});
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+    console.log(inputs)
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      const res = await userRequest.post("/auth/login", inputs);
+      console.log(inputs);
+      console.log(res);
+    }catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="userLogin">
       <div className="userLoginContainer sm:flex-col lg:flex-row">
@@ -11,7 +31,7 @@ const Login = () => {
           <p className="userLoginMessage">サクッと注文みんなハッピー</p>
         </div>
         <div className="userLoginRight sm:w-full sm:mt-3">
-          <form className="userLoginForm" noValidate>
+          <form className="userLoginForm" onSubmit={handleSubmit}>
             <dl className="userLoginFormDl">
               <div className="userLoginFormRow">
                 <dt className="userLoginFormDt">
@@ -21,8 +41,9 @@ const Login = () => {
                   <input
                     id="email"
                     type="email"
+                    name="email"
                     placeholder="メールアドレスを入力しください。"
-                    value=""
+                    onChange={handleChange}
                   />
                 </dd>
               </div>
@@ -34,12 +55,15 @@ const Login = () => {
                   <input
                     id="password"
                     type="password"
+                    name="password"
                     placeholder="パスワードを入力してください。"
-                    value=""
+                    onChange={handleChange}
                   />
                 </dd>
               </div>
-              <button className="formSubmit" type="submit">ログイン</button>
+              <button className="formSubmit" type="submit">
+                ログイン
+              </button>
             </dl>
           </form>
         </div>

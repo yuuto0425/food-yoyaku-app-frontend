@@ -2,28 +2,45 @@ import Login from "./pages/User/Login/Login";
 import Register from "./pages/User/Register/Register";
 import AdminLogin from "./pages/Admin/AdminLogin/AdminLogin";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "./compornents/layout/AuthLayout";
 import "./App.css";
 import ProductList from "./pages/User/ProductList/ProductList";
 import ProductDetails from "./pages/User/ProductDetails/ProductDetails";
 import ProductCart from "./pages/User/ProductCart/ProductCart";
+import AdminDashboard from "./pages/Admin/AdminDashboard/AdminDashboard";
+import { useSelector } from "react-redux";
+
+//画面を際レンダリング(更新)するためにuseDispatchが必要。
 
 function App() {
-  return <div className="App">
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthLayout/>}>
-          <Route path="userLogin" element={<Login/>}/>
-          <Route path="register" element={<Register/>}/>
-          <Route path="adminLogin" element={<AdminLogin/>}/>
-        </Route>
-        <Route path="/productsList" element={<ProductList/>}/>
-        <Route path="/productDetail" element={<ProductDetails/>}/>
-        <Route path="/productCart" element={<ProductCart/>}/>
-      </Routes>
-    </BrowserRouter>
-  </div>;
+  const adminUser = true;
+  const user = useSelector( (state) => state.user.user );
+  console.log(user);
+  return (
+    
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          {/* adminのpageを後で追加 url(例 : adminLogin*/}
+          {/* Navigateと三項演算子で表示コンポーネント管理 */}
+          <Route path="/" element={<AuthLayout />}>
+            <Route
+              path="userLogin"
+              element={user ? <Navigate to="/productsList" /> : <Login />}
+            />
+            <Route path="register" element={<Register />} />
+            <Route path="adminLogin" element={<AdminLogin />} />
+          </Route>
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
+
+          <Route path="/productsList" element={user ? <ProductList />:<Navigate to="/userLogin"/>} />
+          <Route path="/productDetail" element={user ? <ProductDetails />:<Navigate to="/userLogin"/>} />
+          <Route path="/productCart" element={user ?<ProductCart />:<Navigate  to="/userLogin"/>} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
