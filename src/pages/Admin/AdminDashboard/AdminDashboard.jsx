@@ -8,10 +8,13 @@ import {
 import Navbar from "../../../compornents/parts/Navbar";
 import "./AdminDashboard.css";
 import { useState } from "react";
+import { addProducts } from "../../../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 const AdminDashboard = () => {
   const [productImage, setProductImage] = useState(null);
   const [inputs, setInputs] = useState({});
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setInputs((prev) => {
       return {
@@ -49,6 +52,10 @@ const AdminDashboard = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           //この中でapiを叩く
+          const product = { ...inputs, img: downloadURL };
+          console.log(product)
+          addProducts(dispatch,product)
+          console.log("成功しました。");
         });
       }
     );

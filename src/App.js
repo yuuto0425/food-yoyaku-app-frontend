@@ -10,6 +10,7 @@ import ProductDetails from "./pages/User/ProductDetails/ProductDetails";
 import ProductCart from "./pages/User/ProductCart/ProductCart";
 import AdminDashboard from "./pages/Admin/AdminDashboard/AdminDashboard";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 //画面を際レンダリング(更新)するためにuseDispatchが必要。
 
@@ -17,6 +18,12 @@ function App() {
   const adminUser = true;
   const user = useSelector( (state) => state.user.user );
   console.log(user);
+  useEffect(()=> {
+    const getUserCart = async () => {
+
+    }
+    user && getUserCart();
+  },[user]);
   return (
     
     <div className="App">
@@ -35,7 +42,7 @@ function App() {
           <Route path="/adminDashboard" element={<AdminDashboard />} />
 
           <Route path="/productsList" element={user ? <ProductList />:<Navigate to="/userLogin"/>} />
-          <Route path="/productDetail" element={user ? <ProductDetails />:<Navigate to="/userLogin"/>} />
+          <Route path="/productDetails/:id" element={user ? <ProductDetails />:<Navigate to="/userLogin"/>} />
           <Route path="/productCart" element={user ?<ProductCart />:<Navigate  to="/userLogin"/>} />
         </Routes>
       </BrowserRouter>

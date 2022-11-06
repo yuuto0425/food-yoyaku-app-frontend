@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { userRequest } from "../../../requestMethods";
 import "./Login.css";
+import {  useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/apiCalls";
 
 const Login = () => {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -14,9 +19,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const res = await userRequest.post("/auth/login", inputs);
-      console.log(inputs);
-      console.log(res);
+      login(dispatch,inputs);
+      navigate("/productsList")
     }catch (err) {
       console.log(err);
     }
