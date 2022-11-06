@@ -38,7 +38,7 @@ function App() {
             />
             <Route path="register" element={<Register />} />
             <Route path="adminLogin" element={<AdminLogin />} />
-            <Route path="/" element={user ? <Navigate to="/productList" />:<Navigate  to="/userLogin"/>}/>
+            <Route path="/" element={user ? <Navigate to="/productsList" />:<Navigate  to="/userLogin"/>}/>
           </Route>
           <Route path="/adminDashboard" element={<AdminDashboard />} />
           <Route path="/productsList" element={user ? <ProductList />:<Navigate to="/userLogin"/>} />
