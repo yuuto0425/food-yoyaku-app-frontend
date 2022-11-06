@@ -38,9 +38,9 @@ function App() {
             />
             <Route path="register" element={<Register />} />
             <Route path="adminLogin" element={<AdminLogin />} />
+            <Route path="/" element={user ? <Navigate to="/productList" />:<Navigate  to="/userLogin"/>}/>
           </Route>
           <Route path="/adminDashboard" element={<AdminDashboard />} />
-
           <Route path="/productsList" element={user ? <ProductList />:<Navigate to="/userLogin"/>} />
           <Route path="/productDetails/:id" element={user ? <ProductDetails />:<Navigate to="/userLogin"/>} />
           <Route path="/productCart" element={user ?<ProductCart />:<Navigate  to="/userLogin"/>} />
