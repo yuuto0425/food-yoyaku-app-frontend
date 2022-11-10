@@ -29,7 +29,7 @@ const ProductList = () => {
               <li className="productsListItem" >
                 <article>
                   <figure>
-                    <img src={product.img} alt="" />
+                    <img src={product.img || "./assets/img/noimage.png" } alt="" />
                   </figure>
                   <div className="productsListItemBody">
                     <h3 className="productsListItemTitle">{product.productName}</h3>

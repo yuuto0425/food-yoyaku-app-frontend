@@ -8,7 +8,6 @@ import { useState } from "react";
 import { userRequest } from "../../../requestMethods";
 import { useSelector } from "react-redux";
 import { getUserCartCall } from "../../../redux/apiCalls";
-import { async } from "@firebase/util";
 import { userLogout } from "../../../redux/userSlice";
 
 const ProductDetails = () => {
@@ -16,13 +15,10 @@ const ProductDetails = () => {
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [getCart, setGetCart] = useState({});
+  const [quantityCount ,setQuantityCount] = useState(1);
   const user = useSelector((state) => state.user.user);
   const userId = user._id;
   const { _id, price } = product;
-  console.log(user);
-  // console.log(id);
-  // console.log(location);
-  console.log(getCart);
   useEffect(() => {
     const getUserCart = async () => {
       const res = await getUserCartCall(user._id);
@@ -43,35 +39,39 @@ const ProductDetails = () => {
     };
     getProduct();
   }, []);
+  console.log(getCart);
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      console.log(product);
-      const { _id, price } = product;
+      // console.log(product);
+      // console.log(getCart)
       const resResult = !getCart
         ? await userRequest.post("/cart", {
             userId: userId,
             products: [
               {
                 productId: _id,
-                quantity: 1,
+                quantity: quantityCount,
                 price: price,
               },
             ],
+            productId :_id
           })
         : await userRequest.put(`/cart/update/${getCart._id}`, {
             userId: userId,
-            products: [
+            products: [ 
               ...getCart.products,
               {
                 productId: _id,
-                quantity: 8,
-                price: 100,
+                quantity: quantityCount,
+                price: price,
               },
             ],
+            productId :_id
           });
       // console.log(resResult);
       setGetCart(resResult.data);
+
       console.log(getCart);
     } catch (err) {
       console.log(err);
@@ -80,21 +80,33 @@ const ProductDetails = () => {
 
   const handleRemoveProduct = async (e) => {
     e.preventDefault();
-    const { _id :productId } = product;
     try {
-      const res = await userRequest.delete(`/cart/delete?id=${getCart._id}`, {
+      const res = await userRequest.put(`/cart/delete?id=${getCart._id}`, {
+        //deleteでrequestしないことに注意、bodyが載せられない為。
         products: [
           {
-            productId: productId,
+            productId: _id,
           },
         ],
       });
       setGetCart(res.data);
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
       console.log(getCart);
     } catch (err) {
       console.log(err);
     }
   };
+  const handleCount = (e ,type) => {
+    e.preventDefault();
+    if(type === "dec") {
+      quantityCount > 1 && setQuantityCount(quantityCount -1);
+    }
+    else {
+      setQuantityCount(quantityCount + 1);
+    }
+  }
   return (
     <div className="productsDetailsPage">
       <Navbar />
@@ -117,6 +129,9 @@ const ProductDetails = () => {
               >
                 追加
               </button>
+              <button className="productDecCount" onClick={(e) => handleCount(e,"dec")}>-</button>
+              <span className="productNumCount">{quantityCount}</span>
+              <button className="productIncCount" onClick={(e) => handleCount(e,"inc")}>+</button>
               <h3 className="productsDetailItemTitle">{product.productName}</h3>
               <p className="productsDetailItemTxt">{product.desc}</p>
               <p className="productDetailItemPrice">{product.price}円</p>
